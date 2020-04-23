@@ -44,7 +44,9 @@ L.Control.Layers = L.Control.extend({
 		layer = _this.get_next_layer();	    
 	    }	
 
-	    _this.on_change(layer);
+	    if (layer){
+		_this.on_change(layer);
+	    }
 	});
 
         L.DomEvent.on(this.select, 'change', this._change, this);
@@ -78,6 +80,10 @@ L.Control.Layers = L.Control.extend({
 
 	this._layer = layer;
 
+	if (this._map.getZoom() > args["maxZoom"]){
+	    this._map.setZoom(args["maxZoom"]);
+	}
+	
 	// user defined stuff
 	
 	if (this.options.on_change){
